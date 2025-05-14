@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f0f0f0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.inputText {
+  width: 100%;
+  font-size: 18px;
+  padding: 10px;
+  margin-bottom: 20px;
+  overflow: hidden; /* скрываем прокрутку */
+  resize: none; /* отключаем ручное изменение размера */
+  min-height: 50px;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.key,
+.switchLang {
+  padding: 10px 15px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.1s ease;
+}
+
+.key.active,
+.switchLang.active {
+  background: #ccc;
+  transform: scale(0.95);
+}
+
+/* Для служебных клавиш используем меньший шрифт */
+.key.backspace,
+.key.tab,
+.key.capslock,
+.key.enter,
+.key.shift,
+.key.ctrl,
+.key.alt,
+.key.win {
+  font-size: 14px;
+}

@@ -1,17 +1,16 @@
 import { createKeyboard } from "./keyboard.js";
-import { initializeInput, handleGlobalKeyDown, handleGlobalKeyUp, currentLang } from "./inputHandlers.js";
+import { currentLang, initializeInput, handleGlobalKeyDown, handleGlobalKeyUp } from "./inputHandlers.js";
 import { updateKeyboardLabels } from "./utils.js";
+import { LayoutManager } from "./layoutManager.js";
+import { ElementCreator } from "./elementCreator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.createElement("div");
-  container.classList.add("container");
-  document.body.appendChild(container);
+  const layoutManager = new LayoutManager();
+  layoutManager.createContainer("container");
 
-  const input = initializeInput(container);
+  const input = initializeInput(layoutManager.getContainer());
 
-  const keyboardContainer = document.createElement("div");
-  keyboardContainer.classList.add("keyboard");
-  container.appendChild(keyboardContainer);
+  const keyboardContainer = new ElementCreator("div").addClass("keyboard").appendTo(layoutManager.getContainer()).getElement();
 
   const keyboardLayout = [
     [
@@ -88,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
   createKeyboard(keyboardContainer, keyboardLayout, input);
   updateKeyboardLabels(currentLang);
 
-  // Обработка глобальных событий
   document.addEventListener("keydown", (e) => handleGlobalKeyDown(e, input));
   document.addEventListener("keyup", (e) => handleGlobalKeyUp(e));
 });

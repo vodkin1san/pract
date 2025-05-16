@@ -1,27 +1,13 @@
 import { updateKeyboardLabels } from "./utils.js";
+import { BACKSPACE, SHIFT, TAB, ENTER, ARROWRIGHT, ARROWLEFT, CAPSLOCK, SPACE, ONE, ALT } from "./constants.js";
+import { ElementCreator } from "./elementCreator.js";
 
 export let currentLang = "ru";
 export let langSwitchTriggered = false;
 export let capsLockOn = false;
 
-const BACKSPACE = "Backspace";
-const SHIFT = "Shift";
-const TAB = "Tab";
-const ENTER = "Enter";
-const ARROWRIGHT = "ArrowRight";
-const ARROWLEFT = "ArrowLeft";
-const CAPSLOCK = "CapsLock";
-const SPACE = "Space";
-const ONE = 1;
-const ALT = "Alt";
-
 export function initializeInput(container) {
-  const input = document.createElement("textarea");
-  // console.log("Initialized input:", input);
-  input.classList.add("inputText");
-  input.placeholder = "Введите текст ...";
-  container.appendChild(input);
-  input.focus();
+  const input = new ElementCreator("textarea").addClass("inputText").setPlaceholder("Введите текст ...").appendTo(container).getElement();
 
   input.addEventListener("input", () => {
     input.style.height = "auto";
@@ -33,22 +19,18 @@ export function initializeInput(container) {
 
 export function handleGlobalKeyDown(e, input) {
   e.preventDefault();
-  // console.log(e.key, e.code);
-  // Переключение языка
   if (e.altKey && e.shiftKey && !langSwitchTriggered) {
     langSwitchTriggered = true;
     currentLang = currentLang === "ru" ? "en" : "ru";
-    updateKeyboardLabels(currentLang);
+    updateKeyboardLabels();
     return;
   }
 
-  // CapsLock
   if (e.code === CAPSLOCK) {
     capsLockOn = !capsLockOn;
     return;
   }
 
-  // Стрелки
   if (e.code === ARROWLEFT) {
     if (input.selectionStart > 0) {
       input.selectionStart = input.selectionEnd = input.selectionStart - 1;
@@ -62,7 +44,6 @@ export function handleGlobalKeyDown(e, input) {
     return;
   }
 
-  // Специальные клавиши
   if (e.code === BACKSPACE) {
     handleBackspace(input);
     return;
@@ -76,7 +57,6 @@ export function handleGlobalKeyDown(e, input) {
     return;
   }
 
-  // Обычные символы
   if (e.key.length === ONE) {
     let char = e.key;
     if (char.match(/[a-zа-яё]/i)) {
@@ -86,11 +66,11 @@ export function handleGlobalKeyDown(e, input) {
     addToInput(char, input);
   }
 
-  // Анимация виртуальной клавиши
   const virtualKey = document.querySelector(`.key[data-code="${e.code}"]`);
   if (virtualKey) {
     virtualKey.classList.add("active");
-    setTimeout(() => virtualKey.classList.remove("active"), 100);
+    const virtualKeyTimeout = setTimeout(() => virtualKey.classList.remove("active"), 100);
+    clearTimeout(virtualKeyTimeout);
   }
 }
 
@@ -126,8 +106,7 @@ export function handleVirtualKeySpecial(code, input) {
   }
 }
 
-// Вспомогательные функции
-function addToInput(char, input) {
+export function addToInput(char, input) {
   input.focus();
   const start = input.selectionStart;
   const end = input.selectionEnd;
@@ -146,4 +125,7 @@ function handleBackspace(input) {
     input.value = input.value.slice(0, start) + input.value.slice(end);
     input.selectionStart = input.selectionEnd = start;
   }
+  input.style.height = "auto";
+  input.style.height = input.scrollHeight + "px";
+  input.dispatchEvent(new Event("input"));
 }

@@ -1,8 +1,10 @@
-export function updateKeyboardLabels(currentLang) {
+import { currentLang } from "./inputHandlers.js";
+
+export function updateKeyboardLabels() {
   const keys = document.querySelectorAll(".key");
   keys.forEach((key) => {
-    if (key.hasAttribute("data-ru") && key.hasAttribute("data-en")) {
-      key.textContent = key.getAttribute("data-" + currentLang);
+    if (key.dataset.ru && key.dataset.en) {
+      key.textContent = key.dataset[currentLang];
     }
   });
 }

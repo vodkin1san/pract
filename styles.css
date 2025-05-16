@@ -3,13 +3,13 @@
 }
 
 body {
-  background: #f0f0f0;
-  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  background: #f0f0f0;
+  font-family: Arial, sans-serif;
 }
 
 .container {
@@ -19,13 +19,13 @@ body {
 }
 
 .inputText {
+  resize: none;
+  overflow: hidden;
   width: 100%;
-  font-size: 18px;
-  padding: 10px;
-  margin-bottom: 20px;
-  overflow: hidden; /* скрываем прокрутку */
-  resize: none; /* отключаем ручное изменение размера */
   min-height: 50px;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 18px;
 }
 
 .keyboard {
@@ -42,22 +42,21 @@ body {
 
 .key,
 .switchLang {
+  user-select: none;
   padding: 10px 15px;
-  border: 1px solid #aaa;
-  border-radius: 5px;
+  transition: all 0.1s ease;
   background: #fff;
   cursor: pointer;
-  user-select: none;
-  transition: all 0.1s ease;
+  border: 1px solid #aaa;
+  border-radius: 5px;
 }
 
 .key.active,
 .switchLang.active {
-  background: #ccc;
   transform: scale(0.95);
+  background: #ccc;
 }
 
-/* Для служебных клавиш используем меньший шрифт */
 .key.backspace,
 .key.tab,
 .key.capslock,

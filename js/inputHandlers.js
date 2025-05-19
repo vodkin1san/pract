@@ -2,6 +2,7 @@ import { updateKeyboardLabels } from "./utils.js";
 import { BACKSPACE, SHIFT, TAB, ENTER, ARROWRIGHT, ARROWLEFT, CAPSLOCK, SPACE, ONE, ALT } from "./constants.js";
 import { ElementCreator } from "./elementCreator.js";
 import { appState } from "./appState.js";
+import { languageService } from "./languageService.js";
 
 export let langSwitchTriggered = false;
 
@@ -65,7 +66,7 @@ export function handleGlobalKeyDown(e, input) {
     addToInput(char, input);
   }
 
-  const virtualKey = document.querySelector(`.key[data-code="${e.code}"]`);
+  const virtualKey = document.getElementById(e.code);
   if (virtualKey) {
     virtualKey.classList.add("active");
     const virtualKeyTimeout = setTimeout(() => virtualKey.classList.remove("active"), 100);
@@ -77,30 +78,26 @@ export function handleGlobalKeyUp(e) {
   if (e.code.startsWith(SHIFT) || e.code.startsWith(ALT)) {
     langSwitchTriggered = false;
   }
-  const virtualKey = document.querySelector(`.key[data-code="${e.code}"]`);
+  const virtualKey = document.getElementById(e.code);
   if (virtualKey) {
     virtualKey.classList.remove("active");
   }
 }
 
 export function handleKeyClick(keyData, input) {
-  const virtualKey = document.querySelector(`.key[data-code="${keyData.code}"]`);
+  const virtualKey = document.getElementById(keyData.code);
   if (virtualKey) {
     virtualKey.classList.add("active");
-    setTimeout(() => {
-      virtualKey.classList.remove("active");
-    }, 100);
+    setTimeout(() => virtualKey.classList.remove("active"), 100);
   }
 
   if (keyData.labels?.label) {
     handleVirtualKeySpecial(keyData.code, input);
   } else {
     let char = languageService.getLabel(keyData.code, appState.currentLang);
-
     if (appState.capsLockOn && /[a-zа-яё]/.test(char)) {
       char = char.toUpperCase();
     }
-
     addToInput(char, input);
   }
 }

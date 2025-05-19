@@ -1,5 +1,5 @@
 import { ElementCreator } from "./elementCreator.js";
-import { handleVirtualKeySpecial, addToInput } from "./inputHandlers.js";
+import { handleVirtualKeySpecial, addToInput, handleKeyClick } from "./inputHandlers.js";
 import { appState } from "./appState.js";
 import { languageService } from "./languageService.js";
 import { keyboardLayout, keyboardRows } from "./constants.js";
@@ -14,7 +14,7 @@ export function createKeyboard(container, input) {
 
       const btn = new ElementCreator("button")
         .addClass("key")
-        .setAttribute("data-code", keyCode)
+        .setAttribute("id", keyCode)
         .setText(
           appState.capsLockOn && keyData.type === "letter"
             ? languageService.getLabel(keyCode, appState.currentLang).toUpperCase()
@@ -26,13 +26,4 @@ export function createKeyboard(container, input) {
       });
     });
   });
-}
-
-function handleKeyClick(keyData, input) {
-  if (keyData.labels?.label) {
-    handleVirtualKeySpecial(keyData.code, input);
-  } else {
-    const char = languageService.getLabel(keyData.code, appState.currentLang);
-    addToInput(char, input);
-  }
 }

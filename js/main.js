@@ -25,10 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
 
       case "capsLockChanged":
-        const capsKeys = document.querySelectorAll(`[data-code="${CAPSLOCK}"]`);
-        capsKeys.forEach((key) => {
-          key.classList.toggle("active-caps", data);
-        });
+        const capsKey = document.getElementById(CAPSLOCK);
+        if (capsKey) {
+          capsKey.classList.toggle("active-caps", data);
+        }
         break;
     }
   });

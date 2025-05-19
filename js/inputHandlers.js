@@ -58,8 +58,8 @@ export function handleGlobalKeyDown(e, input) {
 
   if (e.key.length === ONE) {
     let char = e.key;
+    const shouldUpper = (appState.capsLockOn && !e.shiftKey) || (!appState.capsLockOn && e.shiftKey);
     if (char.match(/[a-zа-яё]/i)) {
-      const shouldUpper = (appState.capsLockOn && !e.shiftKey) || (!appState.capsLockOn && e.shiftKey);
       char = shouldUpper ? char.toUpperCase() : char.toLowerCase();
     }
     addToInput(char, input);
@@ -80,6 +80,28 @@ export function handleGlobalKeyUp(e) {
   const virtualKey = document.querySelector(`.key[data-code="${e.code}"]`);
   if (virtualKey) {
     virtualKey.classList.remove("active");
+  }
+}
+
+export function handleKeyClick(keyData, input) {
+  const virtualKey = document.querySelector(`.key[data-code="${keyData.code}"]`);
+  if (virtualKey) {
+    virtualKey.classList.add("active");
+    setTimeout(() => {
+      virtualKey.classList.remove("active");
+    }, 100);
+  }
+
+  if (keyData.labels?.label) {
+    handleVirtualKeySpecial(keyData.code, input);
+  } else {
+    let char = languageService.getLabel(keyData.code, appState.currentLang);
+
+    if (appState.capsLockOn && /[a-zа-яё]/.test(char)) {
+      char = char.toUpperCase();
+    }
+
+    addToInput(char, input);
   }
 }
 

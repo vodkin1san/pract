@@ -1,8 +1,16 @@
 export class AppState {
   constructor() {
-    this._currentLang = "ru";
+    this._currentLang = localStorage.getItem("keyboardLang") || "ru";
     this._capsLockOn = false;
     this.observers = [];
+  }
+
+  addLanguage(langCode, labels) {
+    if (!this._availableLangs.includes(langCode)) {
+      this._availableLangs.push(langCode);
+      languageService.registerLanguage(langCode, labels);
+      this.notify("languagesUpdated", this._availableLangs);
+    }
   }
 
   get currentLang() {
@@ -12,6 +20,7 @@ export class AppState {
   set currentLang(value) {
     if (this._currentLang !== value) {
       this._currentLang = value;
+      localStorage.setItem("keyboardLang", value);
       this.notify("currentLangChanged", value);
     }
   }

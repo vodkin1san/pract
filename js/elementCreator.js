@@ -2,6 +2,12 @@ export class ElementCreator {
   constructor(tagName) {
     this.element = document.createElement(tagName);
   }
+  addEventListener(event, callback) {
+    if (this.element) {
+      this.element.addEventListener(event, callback);
+    }
+    return this;
+  }
 
   addClass(className) {
     this.element.classList.add(className);

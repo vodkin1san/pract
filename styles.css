@@ -67,3 +67,8 @@ body {
 .key.win {
   font-size: 14px;
 }
+
+.key.active-caps {
+  background-color: #4caf50;
+  color: white;
+}

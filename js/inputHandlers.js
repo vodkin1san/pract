@@ -1,10 +1,9 @@
 import { updateKeyboardLabels } from "./utils.js";
 import { BACKSPACE, SHIFT, TAB, ENTER, ARROWRIGHT, ARROWLEFT, CAPSLOCK, SPACE, ONE, ALT } from "./constants.js";
 import { ElementCreator } from "./elementCreator.js";
+import { appState } from "./appState.js";
 
-export let currentLang = "ru";
 export let langSwitchTriggered = false;
-export let capsLockOn = false;
 
 export function initializeInput(container) {
   const input = new ElementCreator("textarea").addClass("inputText").setPlaceholder("Введите текст ...").appendTo(container).getElement();
@@ -21,13 +20,13 @@ export function handleGlobalKeyDown(e, input) {
   e.preventDefault();
   if (e.altKey && e.shiftKey && !langSwitchTriggered) {
     langSwitchTriggered = true;
-    currentLang = currentLang === "ru" ? "en" : "ru";
+    appState.currentLang = appState.currentLang === "ru" ? "en" : "ru";
     updateKeyboardLabels();
     return;
   }
 
   if (e.code === CAPSLOCK) {
-    capsLockOn = !capsLockOn;
+    appState.capsLockOn = !appState.capsLockOn;
     return;
   }
 
@@ -60,7 +59,7 @@ export function handleGlobalKeyDown(e, input) {
   if (e.key.length === ONE) {
     let char = e.key;
     if (char.match(/[a-zа-яё]/i)) {
-      const shouldUpper = (capsLockOn && !e.shiftKey) || (!capsLockOn && e.shiftKey);
+      const shouldUpper = (appState.capsLockOn && !e.shiftKey) || (!appState.capsLockOn && e.shiftKey);
       char = shouldUpper ? char.toUpperCase() : char.toLowerCase();
     }
     addToInput(char, input);
@@ -99,7 +98,7 @@ export function handleVirtualKeySpecial(code, input) {
       addToInput(" ", input);
       break;
     case CAPSLOCK:
-      capsLockOn = !capsLockOn;
+      appState.capsLockOn = !appState.capsLockOn;
       break;
     default:
       break;

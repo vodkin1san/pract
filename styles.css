@@ -54,8 +54,8 @@ body {
 
 .key.active,
 .switchLang.active {
-  transform: scale(0.95) !important;
-  background: #ccc !important;
+  transform: scale(0.95);
+  background: #ccc;
 }
 
 .key.backspace,

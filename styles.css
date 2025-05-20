@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.inputText {
+  resize: none;
+  overflow: hidden;
+  width: 100%;
+  min-height: 50px;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.key,
+.switchLang {
+  user-select: none;
+  padding: 10px 15px;
+  transition: all 0.1s ease;
+  background: #fff;
+  cursor: pointer;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  transition: all 0.1s ease;
+}
+
+.key.active,
+.switchLang.active {
+  transform: scale(0.95);
+  background: #ccc;
+}
+
+.key.backspace,
+.key.tab,
+.key.capslock,
+.key.enter,
+.key.shift,
+.key.ctrl,
+.key.alt,
+.key.win {
+  font-size: 14px;
+}
+
+.key.active-caps {
+  background-color: #4caf50;
+  color: white;
+}

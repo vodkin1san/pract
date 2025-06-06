@@ -1,0 +1,6 @@
+.husky/
+**/*.png
+**/*.jpg
+**/*.svg
+**/*.avif
+.gitignore

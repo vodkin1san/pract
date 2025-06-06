@@ -1,0 +1,102 @@
+/* Общие стили для уведомления */
+.toast {
+  padding: 16px;
+  border-radius: 4px;
+  margin: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  /* Начальное состояние для анимации */
+  opacity: 0;
+  transform: translateY(20px);
+  /* Позволяем анимации сохранять конечное состояние */
+  animation-fill-mode: forwards;
+}
+
+/* Анимация для входа с затуханием (fade) */
+.toast-enter-fade {
+  animation: toastEnterFade 0.5s ease-out forwards;
+}
+
+/* Анимация для выхода с затуханием (fade) */
+.toast-exit-fade {
+  animation: toastExitFade 0.5s ease-in forwards;
+}
+
+/* Ключевые кадры для входной анимации fade */
+@keyframes toastEnterFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ключевые кадры для выходной анимации fade */
+@keyframes toastExitFade {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Анимация для входа с использованием слайда (slide) */
+.toast-enter-slide {
+  animation: toastEnterSlide 0.5s ease-out forwards;
+}
+
+/* Анимация для выхода с использованием слайда (slide) */
+.toast-exit-slide {
+  animation: toastExitSlide 0.5s ease-in forwards;
+}
+
+/* Ключевые кадры для входа слайда */
+@keyframes toastEnterSlide {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Ключевые кадры для выхода слайда */
+@keyframes toastExitSlide {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Стили для информационного уведомления */
+.toast.info {
+  border-left: 4px solid #00aaff; /* голубая полоса для информации */
+}
+
+/* Стили для предупреждения */
+.toast.warning {
+  border-left: 4px solid #ffaa00; /* оранжевая полоса для предупреждения */
+}
+
+/* Стили для успешного уведомления */
+.toast.success {
+  border-left: 4px solid #00aa00; /* зелёная полоса для успеха */
+  background-color: #e0ffe0;
+  color: #006600;
+  font-weight: bold;
+}

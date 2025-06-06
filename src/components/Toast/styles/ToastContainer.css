@@ -1,0 +1,28 @@
+/* Стили для контейнера уведомлений */
+.toast-container {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: none; /* Это позволит клики проходить сквозь контейнер, 
+                           если уведомления не занимают всю область */
+}
+
+/* Расположение контейнера в разных углах */
+.toast-container.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.toast-container.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.toast-container.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.toast-container.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}

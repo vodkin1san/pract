@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext", "DOM", "ES2022"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "types": ["react", "react-dom"],
+    "declaration": true,
+    "outDir": "dist/types",
+    "baseUrl": "src"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
